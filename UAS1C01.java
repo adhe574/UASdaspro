@@ -11,6 +11,7 @@ public class UAS1C01 {
     static String[] namaTim01 = new String[jumlahTim01];
     static int[][] skor01 = new int[jumlahTim01][2];
     static int[] totalSkor01 = new int[jumlahTim01];
+    static int buff01 = 1;
 
     public static void main(String[] args) {
         int pilihan;
@@ -54,7 +55,7 @@ public class UAS1C01 {
                 System.out.print("Masukkan skor " + namaTim01[i] + " untuk Level 1: ");
                 int skorLevel1 = sc01.nextInt();
                 if (skorLevel1 < 0) {
-                    System.out.println("Skor tidak valid!");
+                    System.out.println("Skor tidak valid (harus positif)!");
                 } else if (skorLevel1 < 35) {
                     skor01[i][0] = 0;
                     break;
@@ -68,7 +69,7 @@ public class UAS1C01 {
                 System.out.print("Masukkan skor " + namaTim01[i] + " untuk Level 2: ");
                 int skorLevel2 = sc01.nextInt();
                 if (skorLevel2 < 0) {
-                    System.out.println("Skor tidak valid!.");
+                    System.out.println("Skor tidak valid (harus positif)!");
                 } else {
                     skor01[i][1] = skorLevel2;
                     break;
@@ -84,7 +85,13 @@ public class UAS1C01 {
         System.out.printf("%-10s %-7s %-7s %-7s%n", "Nama Tim", "Level 1", "Level 2", "Total Skor01");
 
         for (int i = 0; i < jumlahTim01; i++) {
-            System.out.printf("%-10s %-7d %-7d %-7d%n", namaTim01[i], skor01[i][0], skor01[i][1], totalSkor01[i]);
+            int bonus01 = (skor01[i][0] > 50 && skor01[i][1] > 50) ? buff01 : 0;
+            int totalSkorAkhir01 = totalSkor01[i];
+            if (totalSkorAkhir01 % 2 == 0) totalSkorAkhir01 -= 15;
+            totalSkorAkhir01 += bonus01;
+            totalSkor01[i] = totalSkorAkhir01;
+
+            System.out.printf("%-10s %-7d %-7d %-7d%n", namaTim01[i], skor01[i][0], skor01[i][1], totalSkorAkhir01);
         }
     }
 
@@ -113,10 +120,10 @@ public class UAS1C01 {
             }
         }
 
-        if (seri01) {
-            System.out.println("\nTurnamen seri antara Tim " + juara01 + " dan Tim " + namaTim01[0]);
-        } else {
-            System.out.println("\nSelamat kepada Tim " + juara01 + " yang telah memenangkan kompetisi!");
+            if (seri01) {
+                System.out.println("\nTurnamen berakhir seri antara " + juara01 + " dan Tim " + namaTim01[0]);
+            } else {
+                System.out.println("\nSelamat kepada Tim " + juara01 + " yang telah memenangkan kompetisi!");
         }
     }
 }
